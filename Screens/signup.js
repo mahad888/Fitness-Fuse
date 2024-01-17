@@ -30,7 +30,7 @@ const SignupScreen = ({navigation}) => {
 
   const handle = async () => {
     if (password.length < 8) {
-      Alert.alert('Password must be at least 8 characters long.');
+      Alert.alert('Password must be  least 8 characters long.');
       return;
     }
     try {
