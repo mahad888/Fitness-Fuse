@@ -7,12 +7,12 @@ const Loading = () => {
 
   const handleLogin = () => {
     console.log('Login pressed');
-    navigation.navigate('SignIn'); // Navigate to the 'Login' screen
+    navigation.navigate('SignIn'); 
   };
 
   const handleSignup = () => {
     console.log('Signup pressed');
-    navigation.navigate('SignUp'); // Navigate to the 'Signup' screen
+    navigation.navigate('SignUp'); 
   };
 
   return (
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   container: {
-    marginTop: '140%',
+    marginTop: '130%',
     marginLeft: '12%',
   },
   buton: {

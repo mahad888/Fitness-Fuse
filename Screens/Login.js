@@ -34,10 +34,8 @@ const SignInScreen = ({navigation}) => {
       const userDoc = userQuerySnapshot.docs[0];
       const userData = userDoc.data();
 
-      // Authenticate the user using Firebase Authentication
       await auth().signInWithEmailAndPassword(inputE, inputP);
 
-      // Check if the user is now authenticated
       const currentUser = auth().currentUser;
       if (currentUser) {
         console.log('Login successful!');
@@ -56,7 +54,6 @@ const SignInScreen = ({navigation}) => {
     console.log('Link pressed!');
   };
   const handleSignUpLinkPress = () => {
-    // Navigate to the signup page (replace 'SignUp' with your actual screen name)
     navigation.navigate('SignUp');
   };
   const handleFacebookLogin =()=>{
@@ -113,12 +110,6 @@ const SignInScreen = ({navigation}) => {
               secureTextEntry
             />
             <View style={styles.Links}>
-              {/* <CheckBox
-                disabled={false}
-                value={toggleCheckBox}
-                onValueChange={newValue => setToggleCheckBox(newValue)}
-              />
-              <Text style={{color: '#C0C0C0'}}>Remember me</Text> */}
               <View onPress={handleLinkPress}>
                 <Text style={styles.link}>Forgot password</Text>
               </View>
@@ -128,7 +119,7 @@ const SignInScreen = ({navigation}) => {
             <View style={styles.la}>
             <TouchableOpacity onPress={handleFacebookLogin} >
               <Image
-                source={require('../Assets/facebook.png.png')} // Replace with the actual path
+                source={require('../Assets/facebook.png.png')} 
                 style={styles.socialLogo}
               />
             </TouchableOpacity>

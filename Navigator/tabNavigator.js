@@ -28,6 +28,20 @@ export default function TabNavigator() {
             tabBarActiveBackgroundColor: '#141414',
             tabBarInactiveBackgroundColor: '#141414'
           }}>
+          
+          <Tab.Screen
+            name="Age"
+            component={AgeScreen}
+            options={{tabBarButton: () => null, tabBarVisible: false,headerShown: false,
+            }}
+          />
+          <Tab.Screen
+            name="Gender"
+            component={GenderScreen}
+            options={{tabBarButton: () => null, tabBarVisible: false,headerShown: false,
+            }}
+          />
+          
           <Tab.Screen
             name="Home"
             component={HomeScreen}
@@ -96,18 +110,8 @@ export default function TabNavigator() {
             options={{tabBarButton: () => null, tabBarVisible: false,headerShown: false,
             }}
           />
-          <Tab.Screen
-            name="Gender"
-            component={GenderScreen}
-            options={{tabBarButton: () => null, tabBarVisible: false,headerShown: false,
-            }}
-          />
-          <Tab.Screen
-            name="Age"
-            component={AgeScreen}
-            options={{tabBarButton: () => null, tabBarVisible: false,headerShown: false,
-            }}
-          />
+          
+          
           
         </Tab.Navigator>
       </DietProvider>

@@ -19,6 +19,8 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import { useNavigation } from '@react-navigation/native';
+
 
 const SignupScreen = ({navigation}) => {
   const [name, setName] = React.useState('');
@@ -28,27 +30,32 @@ const SignupScreen = ({navigation}) => {
   const [toggleCheckBox, setToggleCheckBox] = React.useState(false);
   const [imageLoading, setImageLoading] = React.useState(true);
 
+
   const handle = async () => {
     if (password.length < 8) {
-      Alert.alert('Password must be  least 8 characters long.');
+      Alert.alert('Password must be at least 8 characters long.');
       return;
     }
+  
     try {
       await auth().createUserWithEmailAndPassword(email, password);
       const currentUser = auth().currentUser;
-
+  
       if (currentUser) {
-        // Create a user document in Firestore with additional information
         await firestore().collection('users').doc(currentUser.uid).set({
           name,
           email,
           password,
           phone,
         });
-
+        navigation.navigate('SignIn'); 
+  
         console.log('User created successfully');
-        Alert.alert('Sign Up successful!');
-        navigation.navigate('Gender');
+        Alert.alert('Sign Up successful! Please login.');
+  
+        // await auth().signOut();
+  
+        // navigation.navigate('Gender');
       } else {
         console.error('Error creating user: Current user is null');
       }
@@ -56,29 +63,25 @@ const SignupScreen = ({navigation}) => {
       console.error('Error creating user:', error.message);
     }
   };
+  
+  
   const handleSignUpLinkPress = () => {
     console.log('pressed')
     navigation.navigate('SignIn');
   };
   const handleGoogle1 = async () => {
     try {
-      // Configure Google Sign-In
       await GoogleSignin.configure();
 
-      // Sign in with Google
       const {idToken, user} = await GoogleSignin.signIn();
 
-      // Create a Google credential
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-      // Sign in to Firebase with the Google credential
       await auth().signInWithCredential(googleCredential);
 
-      // Now you have the signed-in user
       const currentUser = auth().currentUser;
       console.log('Firebase User:', currentUser);
 
-      // Perform additional actions if needed
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log('Google Sign In Cancelled');
@@ -95,23 +98,17 @@ const SignupScreen = ({navigation}) => {
     const navigation = useNavigation();
 
     try {
-      // Configure Google Sign-In
       await GoogleSignin.configure();
 
-      // Sign in with Google
       const {idToken, user} = await GoogleSignin.signIn();
 
-      // Create a Google credential
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-      // Sign in to Firebase with the Google credential
       await auth().signInWithCredential(googleCredential);
 
-      // Now you have the signed-in user
       const currentUser = auth().currentUser;
       console.log('Firebase User:', currentUser);
 
-      // Navigate to the home page upon successful login
       navigation.navigate('Home');
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -202,7 +199,6 @@ const SignupScreen = ({navigation}) => {
               }}
               value={phone}
               onChangeText={setPhone}
-              secureTextEntry
             />
             <View style={styles.Links}>
               <Pressable onPress={handleSignUpLinkPress} style={styles.p1}>
@@ -211,24 +207,6 @@ const SignupScreen = ({navigation}) => {
             </View>
           </View>
           <View style={styles.signu}>
-            {/* <View style={styles.la}>
-              <TouchableOpacity onPress={handleFacebookLogin}>
-                <Image
-                  source={require('../Assets/facebook.png.png')} // Replace with the actual path
-                  style={styles.socialLogo}
-                />
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={handleGoogleLogin}
-                style={styles.ganda}>
-                <Image
-                  source={require('../Assets/google.png.png')}
-                  style={styles.socialLogo}
-                />
-              </TouchableOpacity>
-            </View> */}
-
             <TouchableOpacity style={styles.login} onPress={handle}>
               <Text
                 style={{
