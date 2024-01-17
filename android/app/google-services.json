@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "670282903650",
+    "project_id": "fitness-fuse",
+    "storage_bucket": "fitness-fuse.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670282903650:android:b008dac2b3729ebdfa213b",
+        "android_client_info": {
+          "package_name": "com.fitness_fuse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOpy2QKv35RxRXbxqfeswLHtjLDF4oi9s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
