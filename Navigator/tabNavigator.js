@@ -23,8 +23,10 @@ export default function TabNavigator() {
       <DietProvider>
         <Tab.Navigator
           screenOptions={{
-            tabBarActiveTintColor: 'tomato',
-            tabBarInactiveTintColor: 'gray',
+            tabBarActiveTintColor: '#9B0808',
+            tabBarInactiveTintColor: '#fff',
+            tabBarActiveBackgroundColor: '#141414',
+            tabBarInactiveBackgroundColor: '#141414'
           }}>
           <Tab.Screen
             name="Home"
