@@ -402,6 +402,7 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   dietsCard: {
+    flex: 1,
     marginLeft: 15,
     marginTop: 15,
   },

@@ -187,21 +187,24 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: 'black',
-    padding: 16,
+    padding: 10,
   },
   buton: {
     backgroundColor: '#2F4F4F',
     marginTop: 20,
     height: 45,
-    width: 260,
+    width: '125%',
     borderRadius: 20,
-    marginLeft:20,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom:18
   },
   innerbutton: {
     flexDirection: 'row',
     padding: 10,
-    alignSelf: 'center',
+    flexGrow: 1
+    // alignSelf: 'center',
   },
   signuptext: {
     textAlign: 'center',
@@ -248,7 +251,7 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   form: {
-    padding: 16,
+    // padding: 5,
     borderRadius: 8,
   },
   group: {
@@ -267,17 +270,19 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   group1: {
-    marginLeft: 20,
+    marginLeft: 15,
   },
   group2: {
-    marginLeft: 20,
+    marginLeft: 15,
   },
   first1: {
     flexDirection: 'row',
+    flex: 1,
   },
   sec: {
     flexDirection: 'row',
     marginTop: 10,
+    flex: 1,
   },
   label: {
     color: 'white',
