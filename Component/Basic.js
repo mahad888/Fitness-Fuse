@@ -161,11 +161,11 @@ const BasicScreen = ({navigation}) => {
         </View>
         <View style={styles.buton}>
         <View style={styles.innerbutton}>
-          <Pressable style={styles.signup} onPress={handleSave}>
-            <Text style={styles.signuptext}>Generate </Text>
+          <Pressable style={styles.generate} onPress={handleSave}>
+            <Text style={styles.generateText}>Generate </Text>
           </Pressable>
-          <Pressable style={styles.login} onPress={handlegptsave}>
-            <Text style={styles.logintext}>Save Plan</Text>
+          <Pressable style={styles.save} onPress={handlegptsave}>
+            <Text style={styles.savePlanText}>Save Plan</Text>
           </Pressable>
         </View>
       </View>
@@ -204,16 +204,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
     flexGrow: 1
-    // alignSelf: 'center',
   },
-  signuptext: {
+  generateText: {
     textAlign: 'center',
     color: 'white',
     fontWeight: 'bold',
     marginTop: 2,
     fontSize: 16,
   },
-  logintext: {
+  savePlanText: {
     textAlign: 'center',
     color: 'white',
     fontWeight: 'bold',
@@ -226,21 +225,14 @@ const styles = StyleSheet.create({
     width: '42%',
     borderRadius: 10,
   },
-  login: {
+  save: {
     backgroundColor: 'red',
     height: 30,
     width: '42%',
     marginLeft: 10,
     borderRadius: 10,
   },
-  chn: {
-    backgroundColor: 'black',
-    height: 30,
-    width: '42%',
-    marginLeft: 10,
-    borderRadius: 10,
-  },
-  signup: {
+  generate: {
     backgroundColor: 'black',
     height: 30,
     width: '42%',
@@ -251,29 +243,29 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   form: {
-    // padding: 5,
     borderRadius: 8,
   },
   group: {
     marginBottom: 16,
     width: '70%',
-    // marginTop: 25
   },
   diet: {
     marginBottom: 16,
-    width: '130%',
+    width: '125%',
     marginTop: 20,
   },
   weightGoal: {
     marginBottom: 16,
-    width: '130%',
+    width: '125%',
     marginTop: 10,
   },
   group1: {
     marginLeft: 15,
+    width: '50%',
   },
   group2: {
     marginLeft: 15,
+    width: '50%',
   },
   first1: {
     flexDirection: 'row',
@@ -313,7 +305,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 4,
     color: '#fff',
-    width: 105,
+    width: '100%',
     paddingLeft: 15,
   },
   input2: {
@@ -330,13 +322,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 4,
     color: '#fff',
-    width: 105,
     paddingLeft: 15,
   },
   picker: {
     height: 40,
     borderWidth: 1,
-    color: 'black', // Set the text color to white
+    fontWeight: 'bold',
+    color: 'black', 
     backgroundColor: 'white',
     marginBottom: 8,
   },
@@ -359,9 +351,8 @@ const styles = StyleSheet.create({
   },
   textView: {
     backgroundColor: 'grey',
-    width: '110%',
+    width: '125%',
     padding: 10, 
-    marginLeft: 20,
     borderRadius:5,
   },
   textCard: {
