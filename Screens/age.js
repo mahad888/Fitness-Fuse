@@ -66,7 +66,6 @@ const AgeScreen = ({navigation}) => {
       if (isLoggedIn) {
         const userId = auth().currentUser.uid;
         try {
-          // Use update instead of set to add data without overriding previous data
           await saveData();
           await firestore().collection('users').doc(userId).update({
             age,
@@ -82,23 +81,6 @@ const AgeScreen = ({navigation}) => {
     } else {
       console.log('Kindly select all data');
       Alert.alert('Fill all fields');
-    }
-  };
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  const loadData = async () => {
-    try {
-      const storedAge = await AsyncStorage.getItem('age');
-      const storedHeight = await AsyncStorage.getItem('height');
-      const storedImage = await AsyncStorage.getItem('profileImage');
-
-      if (storedAge) setAge(parseInt(storedAge, 10));
-      if (storedHeight) setHeight(parseInt(storedHeight, 10));
-      if (storedImage) setProfileImage({uri: storedImage});
-    } catch (error) {
-      console.error('Error loading data from AsyncStorage:', error);
     }
   };
 

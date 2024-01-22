@@ -66,28 +66,6 @@ const GenderScreen = ({navigation}) => {
     setGender(selectedGender);
   };
 
-  useEffect(() => {
-    // Load stored values from AsyncStorage on component mount
-    loadStoredValues();
-  }, []);
-
-  const loadStoredValues = async () => {
-    try {
-      const storedGender = await AsyncStorage.getItem('gender');
-      const storedWeight = await AsyncStorage.getItem('weight');
-
-      if (storedGender) {
-        setGender(storedGender);
-      }
-
-      if (storedWeight) {
-        setWeight(parseInt(storedWeight, 10));
-      }
-    } catch (error) {
-      console.error('Error loading data from AsyncStorage:', error);
-    }
-  };
-
   const saveDataToStorage = async () => {
     try {
       await AsyncStorage.setItem('gender', gender);

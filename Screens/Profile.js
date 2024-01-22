@@ -68,13 +68,15 @@ const ProfileScreen = ({navigation}) => {
     console.log('delete done');
     try {
       const user = auth().currentUser;
-
-      await user.delete();
       const userId = user.uid;
-      await firestore().collection('users').doc(userId).delete();
-      Alert.alert('Success', 'Your profile has been deleted successfully.');
 
+      await AsyncStorage.removeItem(userId);
+      await user.delete();
+      await firestore().collection('users').doc(userId).delete();
+
+      Alert.alert('Success', 'Your profile has been deleted successfully.');
       navigation.navigate('LoadingScreen');
+      
     } catch (error) {
       console.log(error);
     }
