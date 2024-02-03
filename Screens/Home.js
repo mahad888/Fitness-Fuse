@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -11,27 +11,34 @@ import {
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {useAuth} from '../Config/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const Home = ({navigation}) => {
-  const handlePress=()=>{
-    console.log("1 pressed")
-    navigation.navigate('Profile')
-  }
-  const categoriesPressHandler=()=>{
-    
-    navigation.navigate('Categories')
-  }
-  const dietsPressHandler=()=>{
-    
-    navigation.navigate('Diet')
-  }
-  const trainersPressHandler=()=>{
-    console.log("4 pressed")
-    navigation.navigate('Trainer')
-  } 
+  const handlePress = () => {
+    console.log('1 pressed');
+    navigation.navigate('Profile');
+  };
+  const categoriesPressHandler = () => {
+    navigation.navigate('Categories');
+  };
+  const dietsPressHandler = () => {
+    navigation.navigate('Diet');
+  };
+  const trainersPressHandler = () => {
+    console.log('4 pressed');
+    navigation.navigate('Trainer');
+  };
   const [userData, setUserData] = useState({
     name: '',
-    imageUrl: 'https://images.unsplash.com/photo-1611603640928-0a26c496f47e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGJvZHlidWlsZGluZ3xlbnwwfHwwfHx8MA%3D%3D',
+    imageUrl:
+      'https://images.unsplash.com/photo-1611603640928-0a26c496f47e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGJvZHlidWlsZGluZ3xlbnwwfHwwfHx8MA%3D%3D',
   });
+
+  // Storing Fetched image in this state to display
+  const [profileImage, setProfileImage] = useState(
+    require('../Assets/default-img.jpg'),
+  );
+
   const {isLoggedIn} = useAuth();
   useEffect(() => {
     const fetchUserData = async () => {
@@ -52,6 +59,12 @@ const Home = ({navigation}) => {
           } else {
             console.log('User document does not exist');
           }
+
+          //Fetching image stored on AsyncStorage while creating profile
+          const storedProfileImage = await AsyncStorage.getItem('profileImage');
+          if (storedProfileImage) {
+            setProfileImage({uri: storedProfileImage});
+          }
         } catch (error) {
           console.error('Error fetching user data:', error);
         }
@@ -68,10 +81,7 @@ const Home = ({navigation}) => {
           <Text style={styles.headingStyle}>Hello, {userData.name}</Text>
           <Text style={styles.textStyle}>Let's start your day</Text>
         </View>
-        <Image
-          source={{uri: userData.imageUrl}} 
-          style={styles.homeImg}
-        />
+        <Image source={profileImage} style={styles.homeImg} />
       </View>
 
       {/* Plans container */}
@@ -80,14 +90,14 @@ const Home = ({navigation}) => {
         <View style={styles.plansContainer}>
           <View style={styles.plans}>
             <View style={styles.card}>
-            <TouchableOpacity onPress={handlePress}>
-              <ImageBackground
-                source={require('../Assets/jogging.png')}
-                resizeMode="cover"
-                style={styles.planImg}>
-                <Text style={styles.plansText}>Jogging</Text>
-              </ImageBackground>
-            </TouchableOpacity>
+              <TouchableOpacity onPress={handlePress}>
+                <ImageBackground
+                  source={require('../Assets/jogging.png')}
+                  resizeMode="cover"
+                  style={styles.planImg}>
+                  <Text style={styles.plansText}>Jogging</Text>
+                </ImageBackground>
+              </TouchableOpacity>
             </View>
 
             <View style={styles.card}>
@@ -116,18 +126,16 @@ const Home = ({navigation}) => {
                 <Text style={styles.plansText}>Battle Roap</Text>
               </ImageBackground>
             </View>
-
-            
           </View>
         </View>
       </ScrollView>
 
       {/* Categories container */}
       <View style={styles.intros}>
-          <Text style={styles.heading1}>Categories</Text>
-          <TouchableOpacity onPress={categoriesPressHandler}> 
+        <Text style={styles.heading1}>Categories</Text>
+        <TouchableOpacity onPress={categoriesPressHandler}>
           <Text style={styles.heading2}>See All</Text>
-          </TouchableOpacity>
+        </TouchableOpacity>
       </View>
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -175,10 +183,10 @@ const Home = ({navigation}) => {
       </ScrollView>
 
       <View style={styles.intros}>
-          <Text style={styles.heading1}>Trainer</Text>
-          <TouchableOpacity onPress={trainersPressHandler}> 
+        <Text style={styles.heading1}>Trainer</Text>
+        <TouchableOpacity onPress={trainersPressHandler}>
           <Text style={styles.heading2}>See All</Text>
-          </TouchableOpacity>
+        </TouchableOpacity>
       </View>
 
       {/* Trainers Container */}
@@ -226,54 +234,52 @@ const Home = ({navigation}) => {
             />
             <Text style={styles.trainersName}>Ronald</Text>
           </View>
-
         </View>
       </ScrollView>
 
       <View style={styles.intros}>
-          <Text style={styles.heading1}>Diet Plans</Text>
-          <TouchableOpacity onPress={dietsPressHandler}> 
+        <Text style={styles.heading1}>Diet Plans</Text>
+        <TouchableOpacity onPress={dietsPressHandler}>
           <Text style={styles.heading2}>See All</Text>
-          </TouchableOpacity>
+        </TouchableOpacity>
       </View>
 
       {/* Diet plans container */}
-        <View style={styles.dietsSection}>
-          <View style={styles.dietsCard}>
-            <ImageBackground
-              source={require('../Assets/Oatmeal.png')}
-              style={styles.dietsImg}>
-              <Text style={styles.dietsText}>Oatmeal</Text>
-            </ImageBackground>
-          </View>
-
-          <View style={styles.dietsCard}>
-            <ImageBackground
-              source={require('../Assets/Waffles.png')}
-              style={styles.dietsImg}>
-              <Text style={styles.dietsText}>Waffles</Text>
-            </ImageBackground>
-          </View>
+      <View style={styles.dietsSection}>
+        <View style={styles.dietsCard}>
+          <ImageBackground
+            source={require('../Assets/Oatmeal.png')}
+            style={styles.dietsImg}>
+            <Text style={styles.dietsText}>Oatmeal</Text>
+          </ImageBackground>
         </View>
 
-        <View style={styles.dietsSection}>
-          <View style={styles.dietsCard}>
-            <ImageBackground
-              source={require('../Assets/Cornflakes.png')}
-              style={styles.dietsImg}>
-              <Text style={styles.dietsText}>Cornflakes</Text>
-            </ImageBackground>
-          </View>
+        <View style={styles.dietsCard}>
+          <ImageBackground
+            source={require('../Assets/Waffles.png')}
+            style={styles.dietsImg}>
+            <Text style={styles.dietsText}>Waffles</Text>
+          </ImageBackground>
+        </View>
+      </View>
 
-          <View style={styles.dietsCard}>
-            <ImageBackground
-              source={require('../Assets/Fruits-Salad.png')}
-              style={styles.dietsImg}>
-              <Text style={styles.dietsText}>Fruits Salad</Text>
-            </ImageBackground>
-          </View>
+      <View style={styles.dietsSection}>
+        <View style={styles.dietsCard}>
+          <ImageBackground
+            source={require('../Assets/Cornflakes.png')}
+            style={styles.dietsImg}>
+            <Text style={styles.dietsText}>Cornflakes</Text>
+          </ImageBackground>
         </View>
 
+        <View style={styles.dietsCard}>
+          <ImageBackground
+            source={require('../Assets/Fruits-Salad.png')}
+            style={styles.dietsImg}>
+            <Text style={styles.dietsText}>Fruits Salad</Text>
+          </ImageBackground>
+        </View>
+      </View>
     </ScrollView>
   );
 };
@@ -286,8 +292,8 @@ const styles = StyleSheet.create({
   },
   intro: {
     flexDirection: 'row',
-    padding: 20,
-    // marginLeft: 5,
+    justifyContent: 'space-between',
+    padding: 18,
     marginVertical: 10,
   },
   headingStyle: {
@@ -302,21 +308,18 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 50,
-    marginLeft: 80,
     marginTop: 5,
   },
 
   planHead: {
     color: '#fff',
     fontSize: 16,
-    // marginLeft: 5,
-    paddingLeft: 20,
+    marginLeft: '4%'
   },
   plans: {
     flexDirection: 'row',
     marginRight: 15,
     borderRadius: 50,
-
   },
 
   planImg: {
@@ -337,27 +340,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 10,
-    paddingTop: 5
+    paddingTop: 5,
   },
 
   categories: {
     flexDirection: 'row',
-    marginRight: 15
+    marginRight: 15,
   },
 
   heading1: {
     color: '#fff',
     fontSize: 16,
     paddingTop: 10,
-    marginLeft: 3,
-    paddingLeft: 15,
+    marginLeft: '4%',
   },
   heading2: {
     color: '#fff',
     fontSize: 16,
     paddingTop: 10,
-    marginRight: 8,
-    paddingRight: 15
+    marginRight: '4%',
   },
 
   categoriesImg: {
@@ -378,7 +379,7 @@ const styles = StyleSheet.create({
   trainersContainer: {
     flexDirection: 'row',
     paddingTop: 10,
-    marginRight: 15
+    marginRight: 15,
   },
   trainersCard: {
     paddingTop: 5,
@@ -399,7 +400,7 @@ const styles = StyleSheet.create({
 
   dietsSection: {
     flexDirection: 'row',
-    marginBottom: 5
+    marginBottom: 5,
   },
   dietsCard: {
     flex: 1,
