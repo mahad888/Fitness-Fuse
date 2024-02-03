@@ -51,8 +51,10 @@ const AgeScreen = ({navigation}) => {
       });
 
       if (response && !response.didCancel) {
+        console.log('clicked');
         setProfileImage({uri: response.path});
       }
+      
     } catch (error) {
       console.error('Error picking image:', error);
     }
@@ -90,6 +92,10 @@ const AgeScreen = ({navigation}) => {
       await AsyncStorage.setItem('height', height.toString());
       if (profileImage.uri) {
         await AsyncStorage.setItem('profileImage', profileImage.uri);
+      }else{
+        // Storing default image if user don't pick any image
+        setProfileImage(require('../Assets/default-img.jpg'));
+      await AsyncStorage.setItem('profileImage', ''); 
       }
     } catch (error) {
       console.error('Error saving data to AsyncStorage:', error);
